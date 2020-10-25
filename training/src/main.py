@@ -1,18 +1,17 @@
 import argparse
+import os.path
 import re
+import subprocess
 from typing import List
 
+from joblib import dump
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.dummy import DummyClassifier
 from sklearn.exceptions import ConvergenceWarning
-from sklearn.metrics import accuracy_score
-from sklearn.pipeline import make_pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegressionCV
-from joblib import dump
-import os.path
-import subprocess
-
+from sklearn.metrics import accuracy_score
+from sklearn.pipeline import make_pipeline
 from sklearn.utils._testing import ignore_warnings
 
 
@@ -30,7 +29,7 @@ def main():
     testing_data.target = [testing_data.target_names[t] for t in testing_data.target]
 
     model = make_pipeline(
-        TfidfVectorizer(min_df=25, ngram_range=(1, 1), sublinear_tf=True),
+        TfidfVectorizer(min_df=40, ngram_range=(1, 1), sublinear_tf=True),
         LogisticRegressionCV()
     )
 
