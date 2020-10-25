@@ -159,3 +159,6 @@ You can add a github action on a schedule for this!
 * Switch from Heroku to AWS ECR + ECS
 * Switch the model from scikit-learn to Tensorflow, PyTorch, or Keras. Bonus points for transfer learning with pretrained embeddings or models.
 * Fix some of the limitations
+* Switch serving from Flask + Docker + Heroku to Cortex.ai + AWS
+* Switch serving from Flask + Docker + Heroku to AWS Lambda + API Gateway + SAM
+* Add an endpoint for batch processing of predictions
