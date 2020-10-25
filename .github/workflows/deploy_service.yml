@@ -1,0 +1,35 @@
+name: Deploy service
+
+# on merge to master
+on:
+  push:
+    branches:
+      - master
+    paths:
+    - 'serving/**'
+    - '.github/workflows/deploy_service.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: serving
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        lfs: true
+    - name: Login to Heroku
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
+      run: heroku container:push -a $HEROKU_APP web
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
+      run: heroku container:release -a $HEROKU_APP web
