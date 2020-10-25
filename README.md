@@ -85,6 +85,8 @@ You'll need to set up your github actions for the Heroku configuration. `deploy_
 
 # TODO
 
+- document where to look for different pieces
+- give examples of how to extend this
 - clear up which code can be run from where. Some parts of the code assume it's being called from a certain directory like in training code
 
 ## Bugs
@@ -114,8 +116,9 @@ You'll need to set up your github actions for the Heroku configuration. `deploy_
 # Known limitations
 
 - Github actions are limited to 6 hours of runtime. If you have a bigger training job, you'd want to setup an short-lived, high-power instance in the cloud such as AWS/Azure/GCP/etc
+- Github's git-lfs has severe limitations; once you hit the limit it shuts everything down. There's isn't a way to prune it without deleting and recreating your repo. I wouldn't recommend it for long-term production use especially because there's no way to prune the git-lfs history on github.
 - Heroku free tier limits you to 512MB of RAM
-- Heroku free tier goes to sleep automatically and doesn't handle autoscaling, so you wouldn't want to use this for many production deployments
+- Heroku free tier goes to sleep automatically and doesn't handle autoscaling, so you wouldn't want to use this for production deployments
 
 ## Decided not to include
 
@@ -148,3 +151,11 @@ You can add a github action on a schedule for this!
 * MLOps
     * https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f
     * https://www.kdnuggets.com/2018/04/operational-machine-learning-successful-mlops.html
+
+# Exercises to try
+
+* Switch models from git-lfs to DVC with S3 for storage.
+* Switch from a markdown file to DVC for tracking metrics.
+* Switch from Heroku to AWS ECR + ECS
+* Switch the model from scikit-learn to Tensorflow, PyTorch, or Keras. Bonus points for transfer learning with pretrained embeddings or models.
+* Fix some of the limitations
